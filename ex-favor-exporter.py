@@ -4,7 +4,8 @@ import re
 import os
 import random
 from concurrent.futures import ThreadPoolExecutor
-# 这里配置你的cookie
+# 这里配置你的cookies
+# 有啥填啥，必填 {"ipb_member_id":"xxx","ipb_pass_hash":"xxx"}
 cookies={"__cfduid":"xxx","ipb_member_id":"xxx","ipb_pass_hash":"xxx","ipb_session_id":"xxx","sk":"xxx"}
 # 这里指定图片存放目录，默认就好
 desDir=".\\ex-favor\\"
