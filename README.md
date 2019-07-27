@@ -4,7 +4,7 @@
 ## 安装
 ```
 pip install bs4
-pip install rquests
+pip install requests
 ```
 
 ## 使用
