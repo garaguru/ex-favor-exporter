@@ -17,11 +17,11 @@ pip install requests
 5. 在`ex-favor-exporter.py`文件开头配置cookies：
     ```
     # in ex-favor-exporter.py
-    # 有啥填啥，必填 {"ipb_member_id":"xxx","ipb_pass_hash":"xxx"}
-    cookies={"__cfduid":"xxx","ipb_member_id":"xxx","ipb_pass_hash":"xxx","ipb_session_id":"xxx","sk":"xxx"}
+    # 有啥填啥，替换掉 "xxx"
+    cookies={"ipb_member_id":"xxx","ipb_pass_hash":"xxx"}
     ```
 
-7. **运行：**
+6. **运行：**
     ```
     python .\ex-favor-exporter.py
     ```

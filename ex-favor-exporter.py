@@ -6,9 +6,11 @@ import random
 from concurrent.futures import ThreadPoolExecutor
 # 这里配置你的cookies
 # 有啥填啥，必填 {"ipb_member_id":"xxx","ipb_pass_hash":"xxx"}
-cookies={"__cfduid":"xxx","ipb_member_id":"xxx","ipb_pass_hash":"xxx","ipb_session_id":"xxx","sk":"xxx"}
-# 这里指定图片存放目录，默认就好
+cookies={"ipb_member_id":"xxx","ipb_pass_hash":"xxx"}
+# 这里指定图片存放目录，默认就好了
 desDir=".\\ex-favor\\"
+if not os.path.exists(desDir):
+    os.makedirs('ex-favor')
 
 
 USER_AGENTS = [
@@ -72,12 +74,21 @@ try:
     sp=bs(rq.get('https://e-hentai.org/favorites.php',cookies=cookies,headers=fakeua).text,'html.parser')
 except AttributeError:
     print("请检查cookie是否配置正确、ip是否被ban")
-favornum=int(sp.find(attrs={'name':'favform'}).p.string.split(' ')[1])
+
+# 以下逻辑仅为获取收藏数，如果发现获取失败，但确认cookies配置正确，可以手动删掉以下逻辑，配置 pagenum=[你的收藏数]
+favornum=int((sp.find(attrs={'name':'favform'}).p.string.split(' ')[1]).replace(',','').replace(' ',''))
 pagenum=favornum//50+1
+
 urlList=['https://e-hentai.org/favorites.php']
 for i in range(1,pagenum):
     urlList.append('https://e-hentai.org/favorites.php?page='+str(i))
 
+# 此处三行表示使用大小为8的线程池并行导出
+# 如果发现没有反应（即无法创建线程），可以使用串行版本如下：
+# for url in urlList:
+#     getfavor(url)
 pool = ThreadPoolExecutor(8)
 for url in urlList:
     pool.submit(getfavor, url)
+
+input('task running...\n')
